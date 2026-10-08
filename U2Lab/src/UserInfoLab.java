@@ -1,6 +1,29 @@
+import java.util.Scanner;
 public class UserInfoLab {
     public static void main(String[] args) {
         // Part 1
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("What is your first name?");
+        String firstname = input.nextLine();
+        System.out.println("What is your last name?");
+        String lastName = input.nextLine();
+        String user = generateUsername(firstname, lastName);
+        System.out.println("Enter a password:");
+        String pass = input.nextLine();
+        boolean password = validatePassword(pass);
+
+        if(password == true){
+            System.out.println("Enter credit card number");
+            String credit = input.nextLine();
+            String maskCred = maskCreditCard(credit);
+            if(maskCred.equals(credit) != true){
+                System.out.println("Final Details: ");
+                System.out.println("Username: " + user);
+                System.out.println("Credit Card number: " + maskCred);
+            }
+        }
+
         // Create a Scanner for keyboard input
         // Ask the user to enter their first and last name and pass these
         // values to the generateUsername method and save the returned result.
@@ -21,16 +44,59 @@ public class UserInfoLab {
     }
 
     public static String generateUsername(String firstName, String lastName) {
+        String user = "";
+        if(firstName.length() <= 3){
+            user += firstName;
+        }
+
+        else{
+            user += firstName.substring(0,3);
+
+
+        }
+        if(lastName.length() <= 3){
+            user += lastName;
+        }
+        else{
+            user += lastName;
+
+        }
+        user = user.toLowerCase();
+        return user;
         // Fill in this method and return an appropriate username
-        return "";
+
     }
     public static boolean validatePassword(String password) {
-        // Fill in this method and return true/false if the password is valid
-        return true;
+        if(password.length() >= 8){
+            if(!password.toLowerCase().equals(password)){
+                if(containsDigit(password) == true){
+                    return true;
+                }
+                else{
+                    System.out.println("must contain 1 digit");
+                }
+
+            }
+            else{
+                System.out.println("must have at least one upper case character");
+            }
+
+
+        }
+        else{
+            System.out.println("must be at least 8 characters");
+        }
+        return false;
     }
     public static String maskCreditCard(String creditCardNumber) {
+        if(allDigits(creditCardNumber) == false || creditCardNumber.length() != 16){
+            return "N/A";
+        }
+        String newPass = "**** **** **** " + creditCardNumber.substring(12);
+
+
         // Fill in this method and if the credit card is valid, return a masked CC
-        return "";
+        return newPass;
     }
 
     /**
