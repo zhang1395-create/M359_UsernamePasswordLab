@@ -58,7 +58,7 @@ public class UserInfoLab {
             user += lastName;
         }
         else{
-            user += lastName;
+            user += lastName.substring(0,3);
 
         }
         user = user.toLowerCase();
